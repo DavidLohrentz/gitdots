@@ -67,7 +67,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git colorize archlinux docker tmux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -104,5 +104,5 @@ source ~/.config/gitdots/.aliasrc
 #if [[ ! "$SSH_AUTH_SOCK" ]]; then
 #    eval "$(<~/.ssh-agent-thing)"
 #fi
-
+force_color_prompt=yes
 eval $(keychain --eval --noask --nogui --quiet ~/.ssh/id_rsa_dungeon ~/.ssh/id_irsa_git ~/.ssh/id_ed25519_git ~/.ssh/id_rsa)
