@@ -1,0 +1,50 @@
+conky.config = {
+    out_to_x = false,
+    own_window = false,
+    out_to_console = true,
+    background = false,
+    max_text_width = 0,
+
+    -- Update interval in seconds
+    update_interval = 2.0,
+
+    -- This is the number of times Conky will update before quitting.
+    -- Set to zero to run forever.
+    total_run_times = 0,
+
+    -- Shortens units to a single character (kiB->k, GiB->G, etc.). Default is off.
+    short_units = true,
+
+    -- How strict should if_up be when testing an interface for being up?
+    -- The value is one of up, link or address, to check for the interface
+    -- being solely up, being up and having link or being up, having link
+    -- and an assigned IP address.
+    if_up_strictness = 'address',
+
+    -- Add spaces to keep things from moving about?  This only affects certain objects.
+    -- use_spacer should have an argument of left, right, or none
+    use_spacer = 'none',
+
+    -- Force UTF8? note that UTF8 support required XFT
+    override_utf8_locale = false,
+
+    -- number of cpu samples to average
+    -- set to 1 to disable averaging
+    cpu_avg_samples = 2,
+
+};
+
+conky.text = [[
+[
+      { "full_text": "${execi 2 /home/david/scripts/cmus-conky.sh} " , "short_text": "${execi 2 /home/david/scripts/cmus-conky-short.sh} " ,
+	  "color": "\#FFA500","separator":false,"separator_block_width":0 },\
+      { "full_text": "RAM ${memperc}% hog=${top_mem name 1}" , "short_text": "${top_mem name 1}" , 
+	  "color": ${if_match ${memperc}<90}"\#00ffff"${else}"\#ff0000"${endif},"separator":false,"separator_block_width":0 },\
+      { "full_text": "CPU $cpu% ${top name 1}" , "short_text": "${top name 1}", "color": "\#FFA500","separator":false,"separator_block_width":0 }, \
+# Turn SWAP text red if SWAP excedes 25%
+      { "full_text": "Swap: ${swapperc}% " , "color": ${if_match ${swapperc}>25}"\#ff0000"${else}"\#00ffff"${endif},"separator":false,"separator_block_width":0 },\
+	  { "full_text": " / ${fs_free /} ", "color":"\#FFA500","separator":false,"separator_block_width":0},\
+      { "full_text": " ${time %a %b %e  %l:%M} ", "short_text": " ${time %I:%M} ","color": "\#00ffff"}\
+
+],
+]];
