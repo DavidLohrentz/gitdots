@@ -269,7 +269,7 @@ bindsym $mod+Control+a exec atom; workspace $wsa
 
 #
 # launch cmus in a urxvt instance on workspace c
-bindsym $mod+Control+c exec urxvt -name cmus -e cmus
+bindsym $mod+Control+c exec $ns /usr/bin/urxvt -name cmus -e cmus
 
 # launch thunderbird and go to workspace e
 bindsym $mod+Control+e exec thunderbird; workspace $wse
@@ -402,7 +402,7 @@ exec $ns start_conky_maia
 exec_always $ns ff-theme-util
 exec_always $ns fix_xcursor
 # on startup launch cmus in a urxvt instance on workspace c
-#exec $ns urxvt -name cmus -e cmus; $wsc
+exec $ns /usr/bin/urxvt -name cmus -e cmus; $wsc
 
 exec $ns "tmux has-session -t default || urxvt -name -e tmux new -s default"
 
@@ -566,10 +566,9 @@ mode "$mode_gaps_outer" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-# dmenu launcher on F1
+# custom dmenu launcher on F1
 exec_always $ns xmodmap -e "clear F1"
-bindsym --release F1 exec $ns dmenu_recency -m 0 -p "launch:" -fn 'System San Francisco Display-16'
-#
+bindsym --release F1 exec $ns ~/scripts/launcher.sh
 #
 # Set F4 to launch dmenu screen script--switcher between single and dual monitors
 exec_always $ns xmodmap -e "clear F4"
