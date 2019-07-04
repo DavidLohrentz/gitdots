@@ -68,7 +68,6 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
-bindsym $mod+F2 exec palemoon
 # bindsym $mod+F3 exec pcmanfm
 bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec gksu pcmanfm
@@ -91,6 +90,9 @@ bindsym $mod+Control+9 exec $ns /home/david/scripts/ukiyoe_background.sh
 
 # get a black background
 bindsym $mod+Shift+9 exec $ns /home/david/scripts/blackbackground.sh
+
+# get a painting background
+bindsym $mod+Shift+Control+9 exec $ns /home/david/scripts/painting_background.sh
 
 # focus_follows_mouse no
 
@@ -172,7 +174,7 @@ set $ws2 2
 set $ws3 3
 set $ws4 4
 set $ws5 5
-set $wsa "a=atom"
+set $wsa "a"
 set $wsc "c=cmus"
 set $wse "e=email"
 set $wsg "g"
@@ -222,8 +224,6 @@ bindsym $mod+Ctrl+4 move container to workspace $ws4
 bindsym $mod+Ctrl+5 move container to workspace $ws5
 #bindsym $mod+Ctrl+e move container to workspace $wse
 bindsym $mod+Ctrl+t move container to workspace $wst
-bindsym $mod+Ctrl+p move container to workspace $wsp
-bindsym $mod+Ctrl+w move container to workspace $wsw
 
 # Move to workspace with focused container
 bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
@@ -242,6 +242,7 @@ bindsym $mod+Shift+w move container to workspace $wsw; workspace $wsw
 # Open applications on specific workspaces
 assign [class="Thunderbird"] $wse
 assign [class="Atom"] $wsa
+assign [class="Audacity"] $wsa
 assign [class="Pale moon"] $wsp
 assign [class="Opera"] $wsw
 assign [class="Gimp"] $wsg
@@ -276,6 +277,12 @@ bindsym $mod+Control+e exec thunderbird; workspace $wse
 # launch nextcloud and go to workspace n
 bindsym $mod+Ctrl+n exec $ns nextcloud; workspace $wsn
 
+# launch palemoon and go to workspace p
+bindsym $mod+Ctrl+p exec $ns palemoon; workspace $wsp
+#
+# launch Opera and go to workspace w
+bindsym $mod+Ctrl+w exec $ns opera; workspace $wsw
+#
 # -name * above defines window instance
 #for_window [instance="cmus"] → $wsc
 
