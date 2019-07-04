@@ -106,3 +106,21 @@ source ~/.config/gitdots/.aliasrc
 #fi
 force_color_prompt=yes
 eval $(keychain --eval --noask --nogui --quiet ~/.ssh/id_rsa_dungeon ~/.ssh/id_irsa_git ~/.ssh/id_ed25519_git ~/.ssh/id_rsa)
+
+if [ "$TERM" = "linux" ]; then
+    _SEDCMD='s/.*\*color\([0-9]\{1,\}\).*#\([0-9a-fA-F]\{6\}\).*/\1 \2/p'
+    for i in $(sed -n "$_SEDCMD" $HOME/.Xresources | awk '$1 < 16 {printf "\\e]P%X%s", $1, $2}'); do
+        echo -en "$i"
+    done
+    clear
+fi
+
+#PS1='%(t.Ding!.%D{%L:%M})%~ '
+#  PS1="%{${bg[white]}${fg[red]}%}%(?..(%?%))\ 
+#  %{${fg[yellow]}${bg[default]}%}%~ "
+PROMPT='%F{blue}%n%f'  # blue user name
+PROMPT+='@'
+PROMPT+="%F{red}${${(%):-%m}#}%f" # red host name
+PROMPT+=" "
+PROMPT+="%F{yellow}%2~ %f" # Yellow last 2 components of working directory
+PROMPT+='%F{cyan}%(t.motherfucking top of the hour!.%D{%L:%M}) %# ' # cyan prompt
