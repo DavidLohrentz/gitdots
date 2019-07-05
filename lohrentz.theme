@@ -1,9 +1,7 @@
+# cmus theme
+# goes in /usr/share/cmus folder with root ownership
 # Change this to a red or blue theme by doing the following in vim:
 #
-#  :%s/lightgreen/light<color>/g
-#  :%s/green/<color>/g
-#
-
 # Directory colors
 set color_win_dir=default
 
