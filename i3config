@@ -269,7 +269,7 @@ bindsym $mod+Control+a exec atom; workspace $wsa
 
 #
 # launch cmus in a urxvt instance on workspace c
-bindsym $mod+Control+c exec $ns /usr/bin/urxvt -name cmus -e cmus
+bindsym $mod+Control+c workspace $wsc; exec $ns urxvt -e cmus -name cmus
 
 # launch thunderbird and go to workspace e
 bindsym $mod+Control+e exec thunderbird; workspace $wse
@@ -382,7 +382,10 @@ exec $ns xautolock -time 12 -locker blurlock -notify 20 -notifier "notify-send -
 #
 # fresh background at startup and on every reload
 exec_always $ns feh --randomize --bg-max /mnt/HDD-audio-images/.paper/*
-# launch script to create random background hourly
+#
+# launch script to create hourly random background
+# on first log in saves a file at /tmp/firstboot.log
+# if the file exists it exits when the script is run to avoid duplicates
 exec $ns /home/david/scripts/background.sh &
 #
 exec $ns compton -bf
@@ -401,26 +404,25 @@ exec $ns start_conky_maia
 # exec $ns start_conky_green
 exec_always $ns ff-theme-util
 exec_always $ns fix_xcursor
-# on startup launch cmus in a urxvt instance on workspace c
-exec $ns /usr/bin/urxvt -name cmus -e cmus; $wsc
 
 exec $ns "tmux has-session -t default || urxvt -name -e tmux new -s default"
 
-# MATH SCRATCHPAD
-for_window [instance="math"] floating enable
-for_window [instance="math"] reset size 400 200.
+# SCRATCHPAD
+# commenting out because I never use but this will work if uncommented
+#for_window [instance="ranger"] floating enable
+#for_window [instance="ranger"] reset size 500 300.
+#
+#for_window [instance="ranger"] border pixel 7
+#for_window [instance="ranger"] move scratchpad
 
-for_window [instance="math"] border pixel 7
-for_window [instance="math"] move scratchpad
+# start a ranger scratchpad when xsession is started
+#exec_always $ns urxvt -name ranger -e ranger
 
-# start a math scratchpad when xsession is started
-exec $ns urxvt -name math -e bc
+#bindsym $mod+x [instance="ranger"] scratchpad show; [instance="ranger"] move position center
+#bindsym $mod+Shift+x [instance="ranger"] move scratchpad
 
-bindsym $mod+x [instance="math"] scratchpad show; [instance="math"] move position center
-bindsym $mod+Shift+x [instance="math"] move scratchpad
-
-exec $ns /usr/lib/geoclue-2.0/demos/agent
-exec $ns redshift-gtk
+#exec $ns /usr/lib/geoclue-2.0/demos/agent
+#exec $ns redshift-gtk
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
@@ -571,8 +573,9 @@ exec_always $ns xmodmap -e "clear F1"
 bindsym --release F1 exec $ns ~/scripts/launcher.sh
 #
 # Set F4 to launch dmenu screen script--switcher between single and dual monitors
-exec_always $ns xmodmap -e "clear F4"
-bindsym --release F4 exec $ns ~/scripts/screen_stuff_dmenu.sh
+#exec_always $ns xmodmap -e "clear F4"
+bindsym $mod+F4 exec $ns ~/scripts/screen_stuff_dmenu.sh
+#bindsym --release F4 exec $ns ~/scripts/screen_stuff_dmenu.sh
 
 # Set F5 to launch dmenu passmenu script
 exec_always $ns xmodmap -e "clear F5"
