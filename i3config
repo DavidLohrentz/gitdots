@@ -6,9 +6,6 @@ set $mod Mod4
 # set no startup id variable
 set $ns --no-startup-id
 
-# set default desktop layout (default is tiling)
-# workspace_layout tabbed <stacking|tabbed>
-
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 new_window pixel 1
 new_float normal
@@ -28,7 +25,6 @@ font pango:System San Francisco Display 13
 floating_modifier $mod
 
 # start a terminal
-# bindsym $mod+Return exec terminal
 bindsym $mod+Return exec urxvt
 
 # kill focused window
@@ -83,16 +79,16 @@ bindsym $mod+Ctrl+x --release exec $ns xkill
 bindsym $mod+Ctrl+s exec $ns mysql-workbench
 
 # get a random bill frisell background
-bindsym $mod+9 exec $ns /home/david/scripts/frisell_background.sh
+bindsym $mod+9 exec $ns feh --randomize --bg-max /mnt/HDD-audio-images/.paper/musicians/frisell/*
 
 # get a random ukiyoe background
-bindsym $mod+Control+9 exec $ns /home/david/scripts/ukiyoe_background.sh
+bindsym $mod+Control+9 exec $ns feh --randomize --bg-max /mnt/HDD-audio-images/.paper/ukiyoe/*
 
 # get a black background
-bindsym $mod+Shift+9 exec $ns /home/david/scripts/blackbackground.sh
+bindsym $mod+Shift+9 exec $ns feh --randomize --bg-max /mnt/HDD-audio-images/.paper/random/black.png
 
 # get a painting background
-bindsym $mod+Shift+Control+9 exec $ns /home/david/scripts/painting_background.sh
+bindsym $mod+Shift+Control+9 exec $ns feh --randomize --bg-max /mnt/HDD-audio-images/.paper/paintings/*
 
 # focus_follows_mouse no
 
@@ -192,7 +188,7 @@ workspace $ws4 output $mon2
 workspace $ws5 output $mon2
 workspace $wsa output $mon2
 workspace $wsc output $mon2
-workspace $wse output $mon1
+workspace $wse output $mon2
 workspace $wsg output $mon2
 workspace $wsk output $mon2
 workspace $wsn output $mon2
@@ -223,7 +219,7 @@ bindsym $mod+Ctrl+3 move container to workspace $ws3
 bindsym $mod+Ctrl+4 move container to workspace $ws4
 bindsym $mod+Ctrl+5 move container to workspace $ws5
 #bindsym $mod+Ctrl+e move container to workspace $wse
-bindsym $mod+Ctrl+t move container to workspace $wst
+#bindsym $mod+Ctrl+t move container to workspace $wst
 
 # Move to workspace with focused container
 bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
@@ -240,7 +236,6 @@ bindsym $mod+Shift+t move container to workspace $wst; workspace $wst
 bindsym $mod+Shift+w move container to workspace $wsw; workspace $wsw
 
 # Open applications on specific workspaces
-assign [class="Thunderbird"] $wse
 assign [class="Atom"] $wsa
 assign [class="Audacity"] $wsa
 assign [class="Pale moon"] $wsp
@@ -253,6 +248,7 @@ assign [class="kid3"] $wsk
 bindsym $mod+Ctrl+k exec $ns kid3; workspace $wsk
 
 assign [instance="cmus"] $wsc
+assign [instance="mutt"] $wse
 for_window [instance="tmux"] $wst
 # assign [class="Pcmanfm"] $ws3
 # assign [class="Skype"] $ws5
@@ -267,12 +263,13 @@ bindsym $mod+Control+g exec gimp; workspace $wsg
 # launch atom and go to that workspace
 bindsym $mod+Control+a exec atom; workspace $wsa
 
+bindsym $mod+Control+t workspace $wst; urxvt -e 'tmux new -A -s default'
 #
 # launch cmus in a urxvt instance on workspace c
 bindsym $mod+Control+c workspace $wsc; exec $ns urxvt -e cmus -name cmus
 
-# launch thunderbird and go to workspace e
-bindsym $mod+Control+e exec thunderbird; workspace $wse
+# launch neomutt and go to workspace e
+bindsym $mod+Control+e workspace $wse; exec $ns urxvt -e neomutt -name mutt
 
 # launch nextcloud and go to workspace n
 bindsym $mod+Ctrl+n exec $ns nextcloud; workspace $wsn
@@ -320,9 +317,6 @@ for_window [instance="electron"class="Yad"] floating enable
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
-
-# reload the configuration file
-# bindsym $mod+Shift+c reload
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
@@ -380,18 +374,13 @@ mode "resize" {
 exec $ns xautolock -time 12 -locker blurlock -notify 20 -notifier "notify-send -t 5000 -- 'locking momentarily . . .'"
 # /etc/systemd/system/rsync.timer takes care of rsync backup script
 #
-# fresh background at startup and on every reload
-exec_always $ns feh --randomize --bg-max /mnt/HDD-audio-images/.paper/*
-#
-# launch script to create hourly random background
-# on first log in saves a file at /tmp/firstboot.log
-# if the file exists it exits when the script is run to avoid duplicates
-exec $ns /home/david/scripts/background.sh &
-#
 exec $ns compton -bf
 exec $ns /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
-# exec $ns atom
+exec $ns palemoon
+exec $ns /home/david/scripts/startupscript.sh
+
+
 # exec $ns nitrogen --restore; sleep 1; compton -b
 # exec $ns manjaro-hello
 exec $ns nm-applet
@@ -405,7 +394,10 @@ exec $ns start_conky_maia
 exec_always $ns ff-theme-util
 exec_always $ns fix_xcursor
 
-exec $ns "tmux has-session -t default || urxvt -name -e tmux new -s default"
+# fresh background at startup and on every reload
+exec_always $ns feh --randomize --bg-max /mnt/HDD-audio-images/.paper/*
+#
+#exec $ns "tmux has-session -t default || urxvt -name -e tmux new -s default"
 
 # SCRATCHPAD
 # commenting out because I never use but this will work if uncommented
@@ -536,7 +528,9 @@ smart_gaps on
 # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
 smart_borders on
 
-# Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
+# Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. \
+# Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). \
+# If you also press Shift with these keys, the change will be global for all workspaces.
 set $mode_gaps Gaps: (o) outer, (i) inner
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
