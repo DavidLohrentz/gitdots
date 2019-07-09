@@ -2,7 +2,7 @@
     frame_width = 3
     frame_color = "#788388"
     
-    font = System San Francisco Display 20
+    font = System San Francisco Display 16
     
     # Allow a small subset of html markup:
     #   <b>bold</b>
@@ -68,7 +68,12 @@
     # the top and down respectevly.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "0x4+800-600"
+	#
+	# middle of HDMI screen
+    # geometry = "0x4+800-600"
+    
+	# bottom left of HDMI screen
+    geometry = "0x4+0-25"
     
     # Shrink window if it's smaller than the width.  Will be ignored if
     # width is 0.
@@ -77,7 +82,7 @@
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing windowmanager is
     # present (e.g. xcompmgr, compiz, etc.).
-    transparency = 20
+    transparency = 5
     
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
     # for longer than idle_threshold seconds.
@@ -99,7 +104,7 @@
     # 
     # If this option is set to mouse or keyboard, the monitor option
     # will be ignored.
-    follow = keyboard
+    # follow = keyboard
     
     # Should a notification popped up from history be sticky or timeout
     # as if it would normally do.
@@ -183,12 +188,14 @@
     # Otherwise the "#" and following would be interpreted as a comment.
     background = "#263238"
     foreground = "#556064"
-    timeout = 10
+    timeout = 5
 
 [urgency_normal]
-    background = "#FF00FF"
+    background = "#493267"
+	# magenta
+    #background = "#FF00FF"
     foreground = "#F9FAF9"
-    timeout = 10
+    timeout = 6
 
 [urgency_critical]
     #background = "#D62929"
