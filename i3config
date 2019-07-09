@@ -51,10 +51,10 @@ exec_always $ns xrandr --output eDP1 --mode 1366x768 --pos 0x0 --rotate normal \
 ################################################################################################
 
 exec $ns volumeicon
-bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
-#exec $ns pulseaudio
-#exec $ns pa-applet
-#bindsym $mod+Ctrl+m exec pavucontrol
+#bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
+exec $ns pulseaudio
+exec $ns pa-applet
+bindsym $mod+Ctrl+m exec pavucontrol
 
 ################################################################################################
 
@@ -389,7 +389,7 @@ exec $ns pamac-tray
 exec $ns clipit
 # exec $ns blueman-applet
 # exec_always $ns sbxkb
-exec $ns start_conky_maia
+#exec $ns start_conky_maia
 # exec $ns start_conky_green
 exec_always $ns ff-theme-util
 exec_always $ns fix_xcursor
@@ -399,19 +399,18 @@ exec_always $ns feh --randomize --bg-max /mnt/HDD-audio-images/.paper/*
 #
 #exec $ns "tmux has-session -t default || urxvt -name -e tmux new -s default"
 
-# SCRATCHPAD
-# commenting out because I never use but this will work if uncommented
-#for_window [instance="ranger"] floating enable
-#for_window [instance="ranger"] reset size 500 300.
+# HTOP SCRATCHPAD
+for_window [instance="htop"] floating enable
+for_window [instance="htop"] reset size 500 300.
 #
-#for_window [instance="ranger"] border pixel 7
-#for_window [instance="ranger"] move scratchpad
+for_window [instance="ranger"] border pixel 7
+for_window [instance="ranger"] move scratchpad
 
 # start a ranger scratchpad when xsession is started
-#exec_always $ns urxvt -name ranger -e ranger
+exec $ns urxvt -e ranger -name ranger
 
-#bindsym $mod+x [instance="ranger"] scratchpad show; [instance="ranger"] move position center
-#bindsym $mod+Shift+x [instance="ranger"] move scratchpad
+bindsym $mod+x [instance="ranger"] scratchpad show; [instance="ranger"] move position center
+bindsym $mod+Shift+x [instance="ranger"] move scratchpad
 
 #exec $ns /usr/lib/geoclue-2.0/demos/agent
 #exec $ns redshift-gtk
@@ -464,7 +463,8 @@ bar {
 	strip_workspace_numbers yes
 
     colors {
-        background #222D31
+        background $term_background
+        #background #222D31
         statusline #F9FAF9
         separator  #454947
 
