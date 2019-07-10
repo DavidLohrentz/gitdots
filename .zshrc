@@ -1,13 +1,13 @@
 export PATH=$PATH:/home/david/scripts
-
+fortune | cowsay -pn
 # Path to your oh-my-zsh installation.
-export ZSH="/home/david/.oh-my-zsh"
+#export ZSH="/home/david/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="awesomepanda"
+# ZSH_THEME="agnoster"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -67,9 +67,9 @@ ZSH_THEME="awesomepanda"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colorize archlinux docker tmux)
+# plugins=(git colorize archlinux docker tmux)
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -104,6 +104,7 @@ source ~/.config/gitdots/.aliasrc
 #if [[ ! "$SSH_AUTH_SOCK" ]]; then
 #    eval "$(<~/.ssh-agent-thing)"
 #fi
+#eval $(keychain ~/.ssh/id_irsa_git ~/.ssh/id_rsa_dungeon ~/.ssh/id_ed25519_git ~/.ssh/id_rsa)
 force_color_prompt=yes
 
 if [ "$TERM" = "linux" ]; then
@@ -123,4 +124,7 @@ PROMPT+="%F{red}${${(%):-%m}#}%f" # red host name
 PROMPT+=" "
 PROMPT+="%F{yellow}%2~ %f" # Yellow last 2 components of working directory
 PROMPT+='%F{cyan}%(t.ass-kicking top of the hour!.%D{%L:%M}) %# ' # cyan prompt
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+echo ""
+echo "Also, Punkinhead is still an (__!__) "
+echo ""
