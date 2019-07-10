@@ -176,7 +176,7 @@ set $wse "e="
 set $wsg "g"
 set $wsk "k"
 set $wsn "n=nextcloud"
-set $wsp "p=PaleMoon"
+set $wsp "p=pale"
 set $wst "t=tmux"
 set $wsw "w=www"
 
@@ -451,7 +451,11 @@ set_from_resource $term_color15    color15
 # HDMI status bar
 bar {
     output $mon2
-    font pango: System San Francisco Display 12
+    #font pango: System San Francisco Display 13
+    #font pango: Hack 13
+    font pango: Inconsolata 15
+
+
 	#i3bar_command i3bar
 	#status_command i3blocks -c ~/.config/i3/i3blocks/i3blocks.conf
 	#position bottom
