@@ -171,8 +171,8 @@ set $ws3 3
 set $ws4 4
 set $ws5 5
 set $wsa "a"
-set $wsc "c=cmus"
-set $wse "e=email"
+set $wsc "c="
+set $wse "e="
 set $wsg "g"
 set $wsk "k"
 set $wsn "n=nextcloud"
@@ -371,7 +371,8 @@ mode "resize" {
 # bindsym $mod+9 exec $ns blurlock
 
 # Autostart applications
-exec $ns xautolock -time 12 -locker blurlock -notify 20 -notifier "notify-send -t 5000 -- 'locking momentarily . . .'"
+exec $ns xautolock -time 12 -corners 0+-0 -cornerredelay 5 -locker blurlock -notify 20 \
+-notifier "notify-send -t 5000 -- 'hey, asshole: locking . . .'"
 # /etc/systemd/system/rsync.timer takes care of rsync backup script
 #
 exec $ns compton -bf
@@ -463,8 +464,8 @@ bar {
 	strip_workspace_numbers yes
 
     colors {
-        background $term_background
-        #background #222D31
+#        background $term_background
+        background #222D31
         statusline #F9FAF9
         separator  #454947
 
@@ -487,8 +488,8 @@ bar {
 # Hide laptop bar unless $mod is pressed
 #
 #
-       mode hide
-       position top
+#       mode hide
+       position bottom
 }
 
 
