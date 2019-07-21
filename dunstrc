@@ -156,7 +156,10 @@
     icon_position = left
 
     # Paths to default icons.
-    icon_path = /usr/share/icons/Adwaita/16x16/status/:/usr/share/icons/Adwaita/16x16/devices/
+    icon_path = /usr/share/icons/Papirus/32x32@2x/emotes:/usr/share/icons/Papirus/32x32@2x/status:/usr/share/icons/Papirus/32x32@2x/categories:/usr/share/icons/Papirus/32x32@2x/emblems:/usr/share/icons/Papirus/32x32@2x/devices
+
+
+
 
     # Limit icons size.
     max_icon_size=128
