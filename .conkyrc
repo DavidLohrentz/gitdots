@@ -47,7 +47,7 @@ conky.text = [[
 # Turn SWAP text red if SWAP excedes 25%
       { "full_text": "Swap: ${swapperc}% " , "color": ${if_match ${swapperc}>25}"\#ff0000"${else}"\#00ffff"${endif},"separator":false,"separator_block_width":0 },\
 #  Turn CPU red if it is >= 80%
-	  { "full_text": "CPU ${cpubar 1 10} ", "color": ${if_match ${cpu}<80}"\#ffa500"${else}"\#ff0000"${endif}},
+	  { "full_text": "CPU ${cpu cpu0}% ", "color": ${if_match ${cpu}<80}"\#ffa500"${else}"\#ff0000"${endif}},
       { "full_text": "${time %a %b %e :%l:%M} ", "short_text": " ${time %I:%M} ","color":  ${if_match ${time %H}<3}"\#ff0000"${else}"\#00ffff"${endif}}\
 
 ],
