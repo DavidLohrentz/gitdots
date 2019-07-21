@@ -1,5 +1,5 @@
 export PATH=$PATH:/home/david/scripts
-fortune | cowsay -pn
+echo "Punkinhead is still an (__!__) "  | cowsay -pn
 # Path to your oh-my-zsh installation.
 #export ZSH="/home/david/.oh-my-zsh"
 
@@ -125,6 +125,3 @@ PROMPT+=" "
 PROMPT+="%F{yellow}%2~ %f" # Yellow last 2 components of working directory
 PROMPT+='%F{cyan}%(t.ass-kicking top of the hour!.%D{%L:%M}) %# ' # cyan prompt
 #source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-echo ""
-echo "Also, Punkinhead is still an (__!__) "
-echo ""
