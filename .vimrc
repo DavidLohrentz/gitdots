@@ -36,3 +36,21 @@ vno <left> <Nop>
 vno <right> <Nop>
 vno <up> <Nop>
 vno <down> <Nop>
+
+" set the leader to the space key
+let mapleader=" "
+no <leader>d dd
+no <leader>q :wq<CR>
+no <leader>w :w<CR>
+no <leader>u :u
+
+" enter visual line mode with space space
+no <leader><leader> V
+
+"Copy and paste to system clipboard with leader
+vno <leader>y "+y
+vno <leader>d "+d
+no <leader>p "+p
+no <leader>P "+P
+vno <leader>p "+p
+vno <leader>P "+P
