@@ -1,23 +1,27 @@
-" Don't include vi compatibility
-set nocompatible
-" Turn off modelines
-set modelines=0
+" turn on hybrid line numbers 
+:set number relativenumber
 
-" show line numbers
-set number
+" set the leader to the space key
+let mapleader=","
 
-" turn off beeping on error
-set visualbell
-set tabstop=4
-"set colorcolumn=80
+" set the local leader to backslash
+let maplocalleader = "\\""
 
-" show trailing whitespace chars
-set list
-set listchars=tab:>-,trail:.,extends:#,nbsp:.
+no <leader>d dd
+no <leader>q :wq<CR>
+no <leader>w :w<CR>
+no <leader>u :u
 
-" set the colorscheme
-colo desert
-syntax on
+" enter visual line mode with space space
+" no <leader><leader> V
+
+" copy pasta to system clipboard with leader
+no <leader>y "+y
+no <leader>d "+d
+no <leader>p "+p
+no <leader>P "+P
+vno <leader>p "+p
+vno <leader>P "+P
 
 " Unmap the arrow keys
 no <down> <Nop>
@@ -37,20 +41,38 @@ vno <right> <Nop>
 vno <up> <Nop>
 vno <down> <Nop>
 
-" set the leader to the space key
-let mapleader=" "
-no <leader>d dd
-no <leader>q :wq<CR>
-no <leader>w :w<CR>
-no <leader>u :u
+" Fix mode foobar
+ino :q!<CR> <Esc>:q!<CR>
+ino :wq<CR> <Esc>:wq<CR>
 
-" enter visual line mode with space space
-no <leader><leader> V
+" map style checking
+autocmd FileType python nnoremap <LocalLeader>= :0,$!yapf<CR>
 
-"Copy and paste to system clipboard with leader
-vno <leader>y "+y
-vno <leader>d "+d
-no <leader>p "+p
-no <leader>P "+P
-vno <leader>p "+p
-vno <leader>P "+P
+" Enable folding (hide indented code)
+set foldmethod=indent
+set foldlevel=99
+no <leader>z za
+
+" go to next instance of "<##>" delete it
+" and change to insert mode
+ino <leader>, <Esc>/<##><Enter>"_c4l
+no <leader>, <Esc>/<##><Enter>"_c4l
+
+" In python create <##> outside "", go to 2nd" and change to insert mode
+au Filetype python ino <leader>' ""<##><Esc>?"<CR>i
+au Filetype cfg ino <leader>' ""<##><Esc>?"<CR>i
+au Filetype conf ino <leader>' ""<##><Esc>?"<CR>i
+au Filetype vim ino <leader>' ""<##><Esc>?"<CR>i
+
+" same thing for parentheses
+au Filetype python ino <leader>9 ()<##><Esc>?)<CR>i
+au Filetype cfg ino <leader>9 ()<##><Esc>?)<CR>i
+au Filetype conf ino <leader>9 ()<##><Esc>?)<CR>i
+au Filetype vim ino <leader>9 ()<##><Esc>?)<CR>i
+" same for format string parentheses
+au Filetype python ino <leader>( (f"{}")<##><Esc>?f<CR>2li
+
+au Filetype sh colorscheme koehler
+au Filetype cfg colorscheme desert
+au Filetype conf colorscheme desert
+au Filetype python colorscheme python
