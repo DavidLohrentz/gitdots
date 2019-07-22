@@ -25,7 +25,7 @@ font pango:System San Francisco Display 13
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec termite
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -154,8 +154,8 @@ bindsym $mod+Ctrl+Right workspace next
 bindsym $mod+Ctrl+Left workspace prev
 
 # Monitor names
-set $mon1 eDP1
-set $mon2 HDMI1
+set $m1 eDP1
+set $m2 HDMI1
 
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
@@ -167,7 +167,7 @@ set $ws3 3
 set $ws4 4
 set $ws5 "tkinter"
 set $wsa "a"
-set $wsc "c="
+set $wsc "c=cmus"
 set $wse "e="
 set $wsg "g"
 set $wsk "k"
@@ -177,20 +177,20 @@ set $wst "t=tmux"
 set $wsw "w=www"
 
 # assign workspaces to monitors
-workspace $ws1 output $mon1
-workspace $ws2 output $mon1
-workspace $ws3 output $mon2
-workspace $ws4 output $mon2
-workspace $ws5 output $mon2
-workspace $wsa output $mon2
-workspace $wsc output $mon2
-workspace $wse output $mon2
-workspace $wsg output $mon2
-workspace $wsk output $mon2
-workspace $wsn output $mon2
-workspace $wsp output $mon1
-workspace $wst output $mon2
-workspace $wsw output $mon2
+workspace $ws1 output $m1
+workspace $ws2 output $m1
+workspace $ws3 output $m2
+workspace $ws4 output $m2
+workspace $ws5 output $m2
+workspace $wsa output $m2
+workspace $wsc output $m2
+workspace $wse output $m2
+workspace $wsg output $m2
+workspace $wsk output $m2
+workspace $wsn output $m2
+workspace $wsp output $m1
+workspace $wst output $m2
+workspace $wsw output $m2
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -246,10 +246,9 @@ for_window [instance="tk"] floating enable
 bindsym $mod+Ctrl+k exec $ns kid3; workspace $wsk; exec $ns notify-send -i kid3 "launching on workspace k"
 
 
-for_window [instance="cmus"] $wsc
-for_window [instance="mutt"] $wse
-for_window [instance="tmux"] $wst
-# assign [class="Pcmanfm"] $ws3
+assign [instance="cmus"] $wsc
+assign [instance="mutt"] $wse
+assign [instance="tmux"] $wst
 # assign [class="Skype"] $ws5
 #
 # fix popup window in atom that goes astray
@@ -264,14 +263,16 @@ bindsym $mod+Control+g exec gimp; workspace $wsg; exec $ns notify-send -i gimp "
 bindsym $mod+Control+a exec atom; workspace $wsa; exec $ns notify-send -i atom "launching on workspace a"
 
 
-bindsym $mod+Control+t workspace $wst; urxvt -e 'tmux new -A -s default'
+bindsym $mod+Control+t workspace $wst; termite -e 'tmux new -A -s default'
 #
-# launch cmus in a urxvt instance on workspace c
-bindsym $mod+Control+c workspace $wsc; exec $ns urxvt -e cmus; exec $ns notify-send -i audio-headphones "launched on workspace c"
+# launch cmus in a termite instance on workspace c
+bindsym $mod+Control+c exec $ns termite --name=cmus -e cmus; \
+exec $ns notify-send -i audio-headphones "launched on workspace c"; workspace $wsc
 
 
 # launch neomutt and go to workspace e
-bindsym $mod+Control+e workspace $wse; exec $ns urxvt -e neomutt; exec $ns notify-send -i mutt "launched on workspace e"
+bindsym $mod+Control+e workspace $wse; exec $ns termite --name=mutt -e neomutt; \
+exec $ns notify-send -i mutt "launched on workspace e"
 
 
 # launch nextcloud and go to workspace n
@@ -282,40 +283,52 @@ bindsym $mod+Ctrl+p exec $ns palemoon; workspace $wsp; exec $ns notify-send -i p
 #
 # launch Opera and go to workspace w
 bindsym $mod+Ctrl+w exec $ns opera; workspace $wsw; exec $ns notify-send -i opera "launching on workspace w"
-
 #
-# -name * above defines window instance
-#for_window [instance="cmus"] → $wsc
-
-
-
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="calamares"] floating enable border normal
 for_window [class="Clipgrab"] floating enable
+
+
 for_window [title="File Transfer*"] floating enable
 for_window [class="Galculator"] floating enable border pixel 1
 # for_window [class="GParted"] floating enable border normal
+
+
 for_window [title="i3_help"] floating enable sticky enable border normal
 for_window [class="Lightdm-settings"] floating enable
 for_window [class="Lxappearance"] floating enable sticky enable border normal
+
+
 for_window [class="Manjaro-hello"] floating enable
 for_window [class="Manjaro Settings Manager"] floating enable border normal
 for_window [title="MuseScore: Play Panel"] floating enable
+
+
 for_window [class="Nitrogen"] floating enable sticky enable border normal
 for_window [class="Oblogout"] fullscreen enable
 for_window [class="octopi"] floating enable
+
+
 for_window [title="About Pale Moon"] floating enable
 for_window [class="Pamac-manager"] floating enable
 for_window [class="Pavucontrol"] floating enable
+
+
 for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
 for_window [class="Simple-scan"] floating enable border normal
+
+
 for_window [class="(?i)System-config-printer.py"] floating enable border normal
 for_window [class="Skype"] floating enable border normal
 for_window [class="Timeset-gui"] floating enable border normal
+
+
 for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
+
+
 for_window [class="Yad"] floating enable
 for_window [instance="electron4"title="Open File"] fullscreen enable
 for_window [instance="soffice"title="Save"] fullscreen enable
@@ -380,24 +393,30 @@ exec $ns xautolock -time 12 -corners 0+-0 -cornerredelay 5 -locker blurlock -not
 -notifier "notify-send -t 5000 -i /usr/share/icons/Papirus/32x32@2x/status/stock_lock.svg -- 'hey, asshole: locking . . .'"
 # /etc/systemd/system/rsync.timer takes care of rsync backup script
 #
-exec $ns compton -bf
+exec $ns compton -bfc
 exec $ns /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 exec $ns palemoon
 exec $ns /home/david/scripts/background.sh
 
 
-exec $ns urxvt -name cmus -depth 32 -bg rgba:0000/0000/0000/dddd -e cmus &
-exec $ns urxvt -name mutt -depth 32 -bg rgba:0000/0000/0000/dddd -e neomutt &
-exec $ns urxvt -name tmux -depth 32 -bg rgba:0000/0000/0000/dddd -e /usr/bin/tmux new -A -s default &
+exec $ns termite --name=cmus -e cmus &
+exec $ns termite --name=mutt -e neomutt &
+exec $ns termite --name=tmux -e 'tmux new-session -A -s default'
 
+
+# fresh background at startup and on every reload
+exec_always $ns feh --randomize --bg-max /mnt/HDD-audio-images/.paper/*
+
+exec $ns redshift-gtk
+exec $ns nm-applet
+exec $ns xfce4-power-manager
+
+exec $ns pamac-tray
+exec $ns clipit
 
 # exec $ns nitrogen --restore; sleep 1; compton -b
 # exec $ns manjaro-hello
-exec $ns nm-applet
-exec $ns xfce4-power-manager
-exec $ns pamac-tray
-exec $ns clipit
 # exec $ns blueman-applet
 # exec_always $ns sbxkb
 #exec $ns start_conky_maia
@@ -405,25 +424,17 @@ exec $ns clipit
 exec_always $ns ff-theme-util
 exec_always $ns fix_xcursor
 
-# fresh background at startup and on every reload
-exec_always $ns feh --randomize --bg-max /mnt/HDD-audio-images/.paper/*
-#
-#exec $ns "tmux has-session -t default || urxvt -name -e tmux new -s default"
-
 # SCRATCHPAD
 for_window [instance="scratchpad"] floating enable
-for_window [instance="scratchpad"] reset size 500 300.
+for_window [instance="scratchpad"] reset size 600 400
 #
 for_window [instance="scratchpad"] border pixel 7
 for_window [instance="scratchpad"] move scratchpad
 
 # start a scratchpad when xsession is started
-exec $ns urxvt -depth 32 -bg rgba:0000/0000/0000/dddd -name scratchpad &
-
+exec $ns termite --name=scratchpad --config=/home/david/.config/termite/scratchpad/config &
 bindsym $mod+x [instance="scratchpad"] scratchpad show; [instance="scratchpad"] move position center
 bindsym $mod+Shift+x [instance="scratchpad"] move scratchpad
-
-#exec $ns redshift-gtk
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
@@ -459,10 +470,10 @@ set_from_resource $term_color15    color15
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 # HDMI status bar
 bar {
-    output $mon2
+    output $m2
     #font pango: System San Francisco Display 13
     #font pango: Hack 13
-    font pango: Inconsolata 14
+    font pango: Inconsolata 15
 
 
 	#i3bar_command i3bar
@@ -471,14 +482,14 @@ bar {
     #status_command py3status ~/.config/p3status/config
     status_command /home/david/scripts/conky-i3bar
 
-	tray_output $mon2
+	tray_output $m2
 
 	bindsym button4 nop
 	bindsym button5 nop
 	strip_workspace_numbers yes
 
     colors {
-#        background $term_background
+        #background $background
         background #222D31
         statusline #F9FAF9
         separator  #454947
@@ -494,7 +505,7 @@ bar {
 
 # separate status bar for laptop
 bar {
-       output $mon1
+       output $m1
        status_command i3status
 
 
@@ -578,46 +589,42 @@ mode "$mode_gaps_outer" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-# custom dmenu launcher on F1
-exec_always $ns xmodmap -e "clear F1"
-bindsym --release F1 exec $ns ~/scripts/launcher.sh
+# custom dmenu launcher 
+#exec_always $ns xmodmap -e "clear F1"
+bindsym $mod+F1 exec $ns ~/scripts/launcher.sh
 #
-# Set F4 to launch dmenu screen script--switcher between single and dual monitors
+# launch dmenu screen script--switcher between single and dual monitors
 #exec_always $ns xmodmap -e "clear F4"
 bindsym $mod+F4 exec $ns ~/scripts/screen_stuff_dmenu.sh
 #bindsym --release F4 exec $ns ~/scripts/screen_stuff_dmenu.sh
 
 # Set F6 to launch log notifier
-exec_always $ns xmodmap -e "clear F6"
-bindsym --release F6 exec $ns ~/scripts/tail.py
+#exec_always $ns xmodmap -e "clear F6"
+bindsym $mod+F6 exec $ns ~/scripts/tail.py
 
 # Set F5 to launch dmenu passmenu script
-exec_always $ns xmodmap -e "clear F5"
-bindsym --release F5 exec $ns ~/scripts/passmenu.sh
+#exec_always $ns xmodmap -e "clear F5"
+bindsym $mod+Control+F5 exec $ns ~/scripts/passmenu.sh
 bindsym $mod+F5 exec $ns ~/scripts/passmenu2.sh
-
-# Set F7 to launch guipython.py
-exec_always $ns xmodmap -e "clear F7"
-bindsym --release F7 exec $ns python ~/scripts/guipython.py
 
 #
 # Set F8 to launch leave script with dmenu
-exec_always $ns xmodmap -e "clear F8"
-bindsym --release F8 exec $ns ~/scripts/leave.sh
+#exec_always $ns xmodmap -e "clear F8"
+bindsym $mod+F8 exec $ns ~/scripts/leave.sh
 #
 # Set F9 to launch cmus playlist script
-exec_always $ns xmodmap -e "clear F9"
-bindsym --release F9 exec $ns ~/scripts/cmus-album-playlist.sh
+#exec_always $ns xmodmap -e "clear F9"
+bindsym $mod+F9 exec $ns ~/scripts/cmus-album-playlist.sh
 #
 # Shuffle On/Off with F10
-exec_always $ns xmodmap -e "clear F10"
-bindsym --release F10 exec $ns ~/scripts/shuffle_toggle.sh
+#exec_always $ns xmodmap -e "clear F10"
+bindsym $mod+F10 exec $ns ~/scripts/shuffle_toggle.sh
 #
 #
 # Set F11 to toggle play/pause in cmus
-exec_always $ns xmodmap -e "clear F11"
-bindsym --release F11 exec ~/scripts/pause-toggle
+#exec_always $ns xmodmap -e "clear F11"
+bindsym $mod+F11 exec ~/scripts/pause-toggle
 
 # next song in cmus with F12
-exec_always $ns xmodmap -e "clear F12"
-bindsym --release F12 exec $ns ~/scripts/play-next
+#exec_always $ns xmodmap -e "clear F12"
+bindsym $mod+F12 exec $ns ~/scripts/play-next
