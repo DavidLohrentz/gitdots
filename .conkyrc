@@ -38,8 +38,6 @@ conky.text = [[
 [
 #    { "full_text" : " ${cpu}% ${freq_g 1}GHz", "color" : \
 # ${if_match ${cpu}<90}"\#ffa500"${else}"\#ff0000"${endif}},
-      { "full_text": "${execi 60 /home/david/scripts/trumpstatus.sh} " , "short_text": "" ,\
-	  "color": "\#FFA500","separator":false,"separator_block_width":0 },\
       { "full_text": "RAM ${memperc}% hog=${top_mem name 1}" , "short_text": "${top_mem name 1}" , 
 	  "color": ${if_match ${memperc}<90}"\#00ffff"${else}"\#ff0000"${endif},"separator":false,"separator_block_width":0 },\
       { "full_text": "${execi 2 /home/david/scripts/cmus-conky.sh} " , "short_text": "${execi 2 /home/david/scripts/cmus-conky-short.sh} " ,
