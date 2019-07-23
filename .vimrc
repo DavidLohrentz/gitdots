@@ -1,5 +1,12 @@
+" Line numbers
 " turn on hybrid line numbers 
 :set number relativenumber
+" turn off relative numbers in insert mode, on in other modes
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
 
 " set the leader to the space key
 let mapleader=","
@@ -11,9 +18,6 @@ no <leader>d dd
 no <leader>q :wq<CR>
 no <leader>w :w<CR>
 no <leader>u :u
-
-" enter visual line mode with space space
-" no <leader><leader> V
 
 " copy pasta to system clipboard with leader
 no <leader>y "+y
@@ -63,12 +67,15 @@ au Filetype python ino <leader>' ""<##><Esc>?"<CR>i
 au Filetype cfg ino <leader>' ""<##><Esc>?"<CR>i
 au Filetype conf ino <leader>' ""<##><Esc>?"<CR>i
 au Filetype vim ino <leader>' ""<##><Esc>?"<CR>i
+au Filetype text ino <leader>' ""<##><Esc>?"<CR>i
 
 " same thing for parentheses
 au Filetype python ino <leader>9 ()<##><Esc>?)<CR>i
 au Filetype cfg ino <leader>9 ()<##><Esc>?)<CR>i
 au Filetype conf ino <leader>9 ()<##><Esc>?)<CR>i
 au Filetype vim ino <leader>9 ()<##><Esc>?)<CR>i
+au Filetype text ino <leader>9 ()<##><Esc>?)<CR>i
+
 " same for format string parentheses
 au Filetype python ino <leader>( (f"{}")<##><Esc>?f<CR>2li
 
@@ -76,3 +83,9 @@ au Filetype sh colorscheme koehler
 au Filetype cfg colorscheme desert
 au Filetype conf colorscheme desert
 au Filetype python colorscheme python
+
+nnoremap <CR> :nohlsearch<cr>
+
+" navigate by display lines
+noremap j gj
+noremap k gk
