@@ -598,33 +598,33 @@ bindsym $mod+F1 exec $ns ~/scripts/launcher.sh
 bindsym $mod+F4 exec $ns ~/scripts/screen_stuff_dmenu.sh
 #bindsym --release F4 exec $ns ~/scripts/screen_stuff_dmenu.sh
 
-# Set F6 to launch log notifier
+# launch log notifier
 #exec_always $ns xmodmap -e "clear F6"
 bindsym $mod+F6 exec $ns ~/scripts/tail.py
 
-# Set F5 to launch dmenu passmenu script
+# launch dmenu passmenu script
 #exec_always $ns xmodmap -e "clear F5"
 bindsym $mod+Control+F5 exec $ns ~/scripts/passmenu.sh
 bindsym $mod+F5 exec $ns ~/scripts/passmenu2.sh
 
 #
-# Set F8 to launch leave script with dmenu
+# launch leave script with dmenu
 #exec_always $ns xmodmap -e "clear F8"
 bindsym $mod+F8 exec $ns ~/scripts/leave.sh
 #
-# Set F9 to launch cmus playlist script
+# launch cmus playlist script
 #exec_always $ns xmodmap -e "clear F9"
 bindsym $mod+F9 exec $ns ~/scripts/cmus-album-playlist.sh
 #
-# Shuffle On/Off with F10
+# play/pause Shuffle On/Off
 #exec_always $ns xmodmap -e "clear F10"
 bindsym $mod+F10 exec $ns ~/scripts/shuffle_toggle.sh
 #
 #
-# Set F11 to toggle play/pause in cmus
+# toggle play/pause in cmus
 #exec_always $ns xmodmap -e "clear F11"
 bindsym $mod+F11 exec ~/scripts/pause-toggle
 
-# next song in cmus with F12
+# next song in cmus
 #exec_always $ns xmodmap -e "clear F12"
 bindsym $mod+F12 exec $ns ~/scripts/play-next
