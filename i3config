@@ -31,7 +31,7 @@ bindsym $mod+Return exec termite
 bindsym $mod+Shift+q kill
 
 # start program launcher
-bindsym $mod+d exec $ns dmenu_recency -l 50 -fn 'System San Francisco Display-16'
+bindsym $mod+d exec $ns dmenu_recency -fn 'System San Francisco Display-16'
 
 # launch categorized menu
 bindsym $mod+z exec $ns morc_menu
@@ -165,9 +165,9 @@ set $ws1 1
 set $ws2 2
 set $ws3 3
 set $ws4 4
-set $ws5 "tkinter"
+set $ws5 " 5="
 set $wsa "a"
-set $wsc "c=cmus"
+set $wsc "c="
 set $wse "e="
 set $wsg "g"
 set $wsk "k"
@@ -213,7 +213,7 @@ bindsym $mod+Ctrl+1 move container to workspace $ws1
 bindsym $mod+Ctrl+2 move container to workspace $ws2
 bindsym $mod+Ctrl+3 move container to workspace $ws3
 bindsym $mod+Ctrl+4 move container to workspace $ws4
-bindsym $mod+Ctrl+5 move container to workspace $ws5
+#bindsym $mod+Ctrl+5 move container to workspace $ws5
 #bindsym $mod+Ctrl+e move container to workspace $wse
 #bindsym $mod+Ctrl+t move container to workspace $wst
 
@@ -249,6 +249,7 @@ bindsym $mod+Ctrl+k exec $ns kid3; workspace $wsk; exec $ns notify-send -i kid3 
 assign [instance="cmus"] $wsc
 assign [instance="mutt"] $wse
 assign [instance="tmux"] $wst
+assign [instance="reddit"] $ws5
 # assign [class="Skype"] $ws5
 #
 # fix popup window in atom that goes astray
@@ -273,6 +274,10 @@ exec $ns notify-send -i audio-headphones "launched on workspace c"; workspace $w
 # launch neomutt and go to workspace e
 bindsym $mod+Control+e workspace $wse; exec $ns termite --name=mutt -e neomutt; \
 exec $ns notify-send -i mutt "launched on workspace e"
+
+# launch rtv and go to workspace 5
+bindsym $mod+Control+5 workspace $ws5; exec $ns termite --name=reddit -e rtv; \
+exec $ns notify-send -i reddit "launched on workspace 5"
 
 
 # launch nextcloud and go to workspace n
@@ -401,6 +406,7 @@ exec $ns /home/david/scripts/background.sh
 
 
 exec $ns termite --name=cmus -e cmus &
+exec $ns termite --name=reddit -e rtv &
 exec $ns termite --name=mutt -e neomutt &
 exec $ns termite --name=tmux -e 'tmux new-session -A -s default'
 
@@ -435,6 +441,18 @@ for_window [instance="scratchpad"] move scratchpad
 exec $ns termite --name=scratchpad --config=/home/david/.config/termite/scratchpad/config &
 bindsym $mod+x [instance="scratchpad"] scratchpad show; [instance="scratchpad"] move position center
 bindsym $mod+Shift+x [instance="scratchpad"] move scratchpad
+
+# pyradio SCRATCHPAD
+for_window [instance="pyradio"] floating enable
+for_window [instance="pyradio"] reset size 600 400
+#
+for_window [instance="pyradio"] border pixel 7
+for_window [instance="pyradio"] move scratchpad
+
+# start a scratchpad when xsession is started
+exec $ns termite --name=pyradio --config=/home/david/.config/termite/scratchpad/config -e pyradio &
+bindsym $mod+period [instance="pyradio"] scratchpad show; [instance="pyradio"] move position center
+bindsym $mod+Shift+period [instance="pyradio"] move scratchpad
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
