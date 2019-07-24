@@ -166,6 +166,7 @@ set $ws2 2
 set $ws3 3
 set $ws4 4
 set $ws5 " 5="
+set $ws6 " 6="
 set $wsa "a"
 set $wsc "c="
 set $wse "e="
@@ -182,6 +183,7 @@ workspace $ws2 output $m1
 workspace $ws3 output $m2
 workspace $ws4 output $m2
 workspace $ws5 output $m2
+workspace $ws6 output $m2
 workspace $wsa output $m2
 workspace $wsc output $m2
 workspace $wse output $m2
@@ -198,6 +200,7 @@ bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
 bindsym $mod+a workspace $wsa
 bindsym $mod+c workspace $wsc
 bindsym $mod+e workspace $wse
@@ -223,6 +226,7 @@ bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
 bindsym $mod+Shift+a move container to workspace $wsa; workspace $wsa
 bindsym $mod+Shift+c move container to workspace $wsc; workspace $wsc
 bindsym $mod+Shift+g move container to workspace $wsg; workspace $wsg
@@ -250,6 +254,7 @@ assign [instance="cmus"] $wsc
 assign [instance="mutt"] $wse
 assign [instance="tmux"] $wst
 assign [instance="reddit"] $ws5
+assign [instance="calendar"] $ws6
 # assign [class="Skype"] $ws5
 #
 # fix popup window in atom that goes astray
@@ -278,6 +283,10 @@ exec $ns notify-send -i mutt "launched on workspace e"
 # launch rtv and go to workspace 5
 bindsym $mod+Control+5 workspace $ws5; exec $ns termite --name=reddit -e rtv; \
 exec $ns notify-send -i reddit "launched on workspace 5"
+
+# launch calcurse and go to workspace 6
+bindsym $mod+Control+6 workspace $ws6; exec $ns termite --name=calendar -e calcurse; \
+exec $ns notify-send -i calendar "launched on workspace 6"
 
 
 # launch nextcloud and go to workspace n
@@ -449,8 +458,9 @@ for_window [instance="pyradio"] reset size 600 400
 for_window [instance="pyradio"] border pixel 7
 for_window [instance="pyradio"] move scratchpad
 
-# start a scratchpad when xsession is started
+# start a pyradio scratchpad when xsession is started
 exec $ns termite --name=pyradio --config=/home/david/.config/termite/scratchpad/config -e pyradio &
+bindsym $mod+Ctrl+period exec $ns termite --name=pyradio --config=/home/david/.config/termite/scratchpad/config -e pyradio &
 bindsym $mod+period [instance="pyradio"] scratchpad show; [instance="pyradio"] move position center
 bindsym $mod+Shift+period [instance="pyradio"] move scratchpad
 
