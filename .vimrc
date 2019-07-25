@@ -77,7 +77,10 @@ au Filetype vim ino <leader>9 ()<##><Esc>?)<CR>i
 au Filetype text ino <leader>9 ()<##><Esc>?)<CR>i
 
 " same for format string parentheses
-au Filetype python ino <leader>( (f"{}")<##><Esc>?f<CR>2li
+au Filetype python ino <leader>/ (f"{}")<##><Esc>?f<CR>2li
+
+" same for quotation marks inside  parentheses
+au Filetype python ino <leader>. ("")<##><Esc>?"<CR>i
 
 au Filetype sh colorscheme koehler
 au Filetype cfg colorscheme desert
