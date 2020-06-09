@@ -26,6 +26,7 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec termite
+bindsym $mod+Control+Return exec urxvt
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -72,19 +73,18 @@ bindsym $mod+Print --release exec $ns i3-scrot -w
 bindsym $mod+Shift+Print --release exec $ns i3-scrot -s
 bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
 bindsym $mod+Ctrl+x --release exec $ns xkill
-bindsym $mod+Ctrl+s exec $ns mysql-workbench
 
 # get a random bill frisell background
-bindsym $mod+9 exec $ns feh --randomize --bg-max /mnt/HDD-audio-images/.paper/musicians/frisell/*
+bindsym $mod+9 exec $ns feh --randomize --bg-max /mnt/images/.paper/musicians/frisell/*
 
 # get a random ukiyoe background
-bindsym $mod+Ctrl+9 exec $ns feh --randomize --bg-max /mnt/HDD-audio-images/.paper/ukiyoe/*
+bindsym $mod+Ctrl+9 exec $ns feh --randomize --bg-max /mnt/images/.paper/ukiyoe/*
 
 # get a black background
-bindsym $mod+Shift+9 exec $ns feh --randomize --bg-max /mnt/HDD-audio-images/.paper/random/black.png
+bindsym $mod+Shift+9 exec $ns feh --randomize --bg-max /mnt/images/.paper/random/black.png
 
 # get a painting background
-bindsym $mod+Shift+Ctrl+9 exec $ns feh --randomize --bg-max /mnt/HDD-audio-images/.paper/paintings/*
+bindsym $mod+Shift+Ctrl+9 exec $ns feh --randomize --bg-max /mnt/images/.paper/paintings/*
 
 # focus_follows_mouse no
 
@@ -165,15 +165,13 @@ set $ws1 1
 set $ws2 2
 set $ws3 3
 set $ws4 4
-set $ws5 " 5="
+set $ws5 5
 set $ws6 " 6="
 set $wsa "a"
-set $wsc "c="
+set $wsc "c=cmus"
 set $wse "e="
 set $wsg "g"
 set $wsk "k"
-set $wsn "n=nextcloud"
-set $wsp "p=pale"
 set $wst "t=tmux"
 set $wsw "w=www"
 
@@ -189,10 +187,10 @@ workspace $wsc output $m2
 workspace $wse output $m2
 workspace $wsg output $m2
 workspace $wsk output $m2
-workspace $wsn output $m2
-workspace $wsp output $m1
+#workspace $wsn output $m2
+#workspace $wsp output $m1
 workspace $wst output $m2
-workspace $wsw output $m2
+workspace $wsw output $m1
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -206,8 +204,8 @@ bindsym $mod+c workspace $wsc
 bindsym $mod+e workspace $wse
 bindsym $mod+g workspace $wsg
 bindsym $mod+k workspace $wsk
-bindsym $mod+n workspace $wsn
-bindsym $mod+p workspace $wsp
+#bindsym $mod+n workspace $wsn
+#bindsym $mod+p workspace $wsp
 bindsym $mod+t workspace $wst
 bindsym $mod+w workspace $wsw
 
@@ -231,18 +229,16 @@ bindsym $mod+Shift+a move container to workspace $wsa; workspace $wsa
 bindsym $mod+Shift+c move container to workspace $wsc; workspace $wsc
 bindsym $mod+Shift+g move container to workspace $wsg; workspace $wsg
 bindsym $mod+Shift+k move container to workspace $wsk; workspace $wsk
-bindsym $mod+Shift+p move container to workspace $wsp; workspace $wsp
+#bindsym $mod+Shift+p move container to workspace $wsp; workspace $wsp
 bindsym $mod+Shift+t move container to workspace $wst; workspace $wst
 bindsym $mod+Shift+w move container to workspace $wsw; workspace $wsw
 
 # Open applications on specific workspaces
 assign [class="Atom"] $wsa
 assign [class="Audacity"] $wsa
-assign [class="Pale moon"] $wsp
-assign [class="Opera"] $wsw
+assign [class="firefox"] $wsw
 assign [class="Gimp"] $wsg
 assign [class="GParted"] $wsg
-assign [class="Nextcloud"] $wsn
 assign [class="kdenlive"] $wsk
 assign [class="kid3"] $wsk
 #for_window [instance="tk"] $ws5
@@ -272,38 +268,25 @@ bindsym $mod+Ctrl+a exec atom; workspace $wsa; exec $ns notify-send -i atom "lau
 bindsym $mod+Ctrl+t workspace $wst; termite -e 'tmux new -A -s default'
 #
 # launch cmus in a termite instance on workspace c
-bindsym $mod+Ctrl+c exec $ns termite --name=cmus -e cmus; \
+bindsym $mod+Ctrl+c exec $ns termite --config=/home/david/.config/termite/gruvbox/config --name=cmus -e cmus; \
 exec $ns notify-send -i audio-headphones "launched on workspace c"; workspace $wsc
 
 
 # launch neomutt and go to workspace e
-bindsym $mod+Ctrl+e workspace $wse; exec $ns termite --name=mutt -e neomutt; \
+bindsym $mod+Ctrl+e workspace $wse; exec $ns firejail termite --config=/home/david/.config/termite/brogrammer/config --name=mutt -e neomutt; \
 exec $ns notify-send -i mutt "launched on workspace e"
 
-# launch rtv and go to workspace 5
-bindsym $mod+Ctrl+5 workspace $ws5; exec $ns termite --name=reddit -e rtv; \
-exec $ns notify-send -i reddit "launched on workspace 5"
-
 # launch calcurse and go to workspace 6
-bindsym $mod+Ctrl+6 workspace $ws6; exec $ns termite --name=calcurse -e calcurse
-
-
-# launch nextcloud and go to workspace n
-bindsym $mod+Ctrl+n exec $ns nextcloud; workspace $wsn
-
-# launch palemoon and go to workspace p
-bindsym $mod+Ctrl+p exec $ns palemoon; workspace $wsp; exec $ns notify-send -i palemoon "launching on workspace p"
-#
-# launch Opera and go to workspace w
-bindsym $mod+Ctrl+w exec $ns opera; workspace $wsw; exec $ns notify-send -i opera "launching on workspace w"
+bindsym $mod+Ctrl+6 workspace $ws6; exec $ns termite --config=/home/david/.config/termite/gruvbox/config --name=calcurse -e calcurse
 #
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="calamares"] floating enable border normal
 for_window [class="Clipgrab"] floating enable
 
-
 for_window [title="File Transfer*"] floating enable
+for_window [title="File Upload*"] floating enable
+for_window [title="File Upload"] floating enable
 for_window [class="Galculator"] floating enable border pixel 1
 # for_window [class="GParted"] floating enable border normal
 
@@ -321,9 +304,9 @@ for_window [title="MuseScore: Play Panel"] floating enable
 for_window [class="Nitrogen"] floating enable sticky enable border normal
 for_window [class="Oblogout"] fullscreen enable
 for_window [class="octopi"] floating enable
+for_window [class="firefox"] fullscreen enable
 
 
-for_window [title="About Pale Moon"] floating enable
 for_window [class="Pamac-manager"] floating enable
 for_window [class="Pavucontrol"] floating enable
 
@@ -403,28 +386,30 @@ mode "resize" {
 
 # Autostart applications
 exec $ns xautolock -time 12 -corners 0+-0 -cornerredelay 5 -locker blurlock -notify 20 \
--notifier "notify-send -t 5000 -i /usr/share/icons/Papirus/32x32@2x/status/stock_lock.svg -- 'hey, asshole: locking . . .'"
+-notifier "notify-send -t 5000 -i /usr/share/icons/Papirus/32x32@2x/status/stock_lock.svg -- 'locking momentarily . . .'"
 # /etc/systemd/system/rsync.timer takes care of rsync backup script
 #
-exec $ns compton -bfc
+# Compositor
+#exec $ns compton -bfc
+#exec $ns picom
+# picom is started by background.sh; otherwise got goofy partial screen
+# only on laptop if starting up picom here
+#
 exec $ns /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
-exec $ns palemoon
+#exec $ns firejail palemoon
+exec $ns firejail firefox
 exec $ns /home/david/scripts/background.sh
 
-set $ws5 " 5="
-set $ws6 " 6="
-set $wsa "a"
-set $wsc "c="
-set $wse "e="
-
 exec $ns termite --name=cmus -e cmus &
-exec $ns termite --name=reddit -e rtv &
+#exec $ns termite --name=calcurse -e calcurse &
+#exec $ns firejail termite --name=reddit -e rtv &
 exec $ns termite --name=mutt -e neomutt &
 exec $ns termite --name=tmux -e 'tmux new-session -A -s default'
+#exec $ns nextcloud
 
 # fresh background at startup and on every reload
-exec_always $ns feh --randomize --bg-max /mnt/HDD-audio-images/.paper/*
+exec_always $ns feh --randomize --bg-max /mnt/images/.paper/*
 
 exec $ns redshift-gtk
 exec $ns nm-applet
@@ -444,7 +429,7 @@ exec_always $ns fix_xcursor
 
 # SCRATCHPAD
 for_window [instance="scratchpad"] floating enable
-for_window [instance="scratchpad"] reset size 600 400
+for_window [instance="scratchpad"] resize set 600 400
 #
 for_window [instance="scratchpad"] border pixel 7
 for_window [instance="scratchpad"] move scratchpad
@@ -456,9 +441,9 @@ bindsym $mod+Shift+x [instance="scratchpad"] move scratchpad
 
 # pyradio SCRATCHPAD
 for_window [instance="pyradio"] floating enable
-for_window [instance="pyradio"] reset size 600 400
+for_window [instance="pyradio"] resize set 600 400
 #
-for_window [instance="pyradio"] border pixel 7
+for_window [instance="pyradio"] border pixel 9
 for_window [instance="pyradio"] move scratchpad
 
 # start a pyradio scratchpad when xsession is started
@@ -467,18 +452,19 @@ bindsym $mod+Ctrl+period exec $ns termite --name=pyradio --config=/home/david/.c
 bindsym $mod+period [instance="pyradio"] scratchpad show; [instance="pyradio"] move position center
 bindsym $mod+Shift+period [instance="pyradio"] move scratchpad
 
-# calcurse SCRATCHPAD
-for_window [instance="calendar"] floating enable
-for_window [instance="calendar"] reset size 600 400
-#
-for_window [instance="calendar"] border pixel 7
-for_window [instance="calendar"] move scratchpad
 
-# start a calendar scratchpad when xsession is started
-exec $ns termite --name=calendar --config=/home/david/.config/termite/scratchpad/config -e calcurse &
-bindsym $mod+Ctrl+comma exec $ns termite --name=calendar --config=/home/david/.config/termite/scratchpad/config -e calcurse &
-bindsym $mod+comma [instance="calendar"] scratchpad show; [instance="calendar"] move position center
-bindsym $mod+Shift+comma [instance="calendar"] move scratchpad
+# calcurse SCRATCHPAD
+#for_window [instance="calendar"] floating enable
+#for_window [instance="calendar"] reset size 600 400
+##
+#for_window [instance="calendar"] border pixel 7
+#for_window [instance="calendar"] move scratchpad
+
+## start a calendar scratchpad when xsession is started
+#exec $ns termite --name=calendar --config=/home/david/.config/termite/scratchpad/config -e calcurse &
+#bindsym $mod+Ctrl+comma exec $ns termite --name=calendar --config=/home/david/.config/termite/scratchpad/config -e calcurse &
+#bindsym $mod+comma [instance="calendar"] scratchpad show; [instance="calendar"] move position center
+#bindsym $mod+Shift+comma [instance="calendar"] move scratchpad
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
@@ -515,9 +501,9 @@ set_from_resource $term_color15    color15
 # HDMI status bar
 bar {
     output $m2
-    #font pango: System San Francisco Display 13
+    font pango: System San Francisco Display 12
     #font pango: Hack 13
-    font pango: Inconsolata 15
+    #font pango: Inconsolata 15
 
 
 	#i3bar_command i3bar
@@ -550,7 +536,9 @@ bar {
 # separate status bar for laptop
 bar {
        output $m1
-       status_command i3status
+       status_command /home/david/scripts/conkyi3-laptop
+	   tray_output $m2
+       #status_command i3status
 
 
        font pango: Hack 11
@@ -652,13 +640,16 @@ bindsym $mod+Ctrl+F5 exec $ns ~/scripts/passmenu.sh
 bindsym $mod+F5 exec $ns ~/scripts/passmenu2.sh
 
 #
+#exec_always $ns xmodmap -e "clear F7"
+bindsym $mod+F7 exec $ns ~/scripts/snippets.py
+#
 # launch leave script with dmenu
 #exec_always $ns xmodmap -e "clear F8"
 bindsym $mod+F8 exec $ns ~/scripts/leave.sh
 #
 # launch cmus playlist script
 #exec_always $ns xmodmap -e "clear F9"
-bindsym $mod+F9 exec $ns ~/scripts/cmus-album-playlist.sh
+bindsym $mod+F9 exec $ns ~/scripts/cmus.py
 #
 # play/pause Shuffle On/Off
 #exec_always $ns xmodmap -e "clear F10"
