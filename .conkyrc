@@ -36,8 +36,8 @@ conky.config = {
 
 conky.text = [[
 [
-#    { "full_text" : " ${cpu}% ${freq_g 1}GHz", "color" : \
-# ${if_match ${cpu}<90}"\#ffa500"${else}"\#ff0000"${endif}},
+      { "full_text" : "  / ${fs_free /} Free  " , "color" : "\#00ffff"  },
+      { "full_text" : "  /home ${fs_free /home} Free  " , "color" : "\#ffa500"  },
       { "full_text": "RAM ${memperc}% hog=${top_mem name 1}" , "short_text": "${top_mem name 1}" , 
 	  "color": ${if_match ${memperc}<90}"\#00ffff"${else}"\#ff0000"${endif},"separator":false,"separator_block_width":0 },\
       { "full_text": "${execi 2 /home/david/scripts/cmus-conky.sh} " , "short_text": "${execi 2 /home/david/scripts/cmus-conky-short.sh} " ,
@@ -46,7 +46,7 @@ conky.text = [[
       { "full_text": "Swap: ${swapperc}% " , "color": ${if_match ${swapperc}>25}"\#ff0000"${else}"\#00ffff"${endif},"separator":false,"separator_block_width":0 },\
 #  Turn CPU red if it is >= 80%
 	  { "full_text": "CPU ${cpu cpu0}% ", "color": ${if_match ${cpu}<80}"\#ffa500"${else}"\#ff0000"${endif}},
-      { "full_text": "${time %a %b %e :%l:%M} ", "short_text": " ${time %I:%M} ","color":  ${if_match ${time %H}<3}"\#ff0000"${else}"\#00ffff"${endif}}\
+      { "full_text": "${time %a %b %e %l:%M} ", "short_text": " ${time %I:%M} ","color":  ${if_match ${time %H}<3}"\#ff0000"${else}"\#00ffff"${endif}}\
 
 ],
 ]];
