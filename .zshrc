@@ -1,13 +1,24 @@
-export PATH=$PATH:/home/david/scripts
-echo "Punkinhead is still an (__!__) "  | cowsay -pn
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+PROMPT+='%F{cyan}%(t.ass-kicking top of the hour!.%D{%L:%M}) %# ' # cyan prompt
+cowthink -f head-in "trump, you said you were going to make your head great again"
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
 # Path to your oh-my-zsh installation.
-#export ZSH="/home/david/.oh-my-zsh"
+export ZSH="/home/david/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME="agnoster"
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+#ZSH_THEME="robbyrussell"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -20,7 +31,7 @@ echo "Punkinhead is still an (__!__) "  | cowsay -pn
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -29,7 +40,7 @@ echo "Punkinhead is still an (__!__) "  | cowsay -pn
 # DISABLE_UPDATE_PROMPT="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=30
+# export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS=true
@@ -67,9 +78,9 @@ echo "Punkinhead is still an (__!__) "  | cowsay -pn
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# plugins=(git colorize archlinux docker tmux)
+plugins=(git)
 
-# source $ZSH/oh-my-zsh.sh
+source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -87,41 +98,31 @@ echo "Punkinhead is still an (__!__) "  | cowsay -pn
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
+#
+## Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-source ~/.config/gitdots/.aliasrc
+source $HOME/.aliasrc
+#
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-#if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-#    ssh-agent > ~/.ssh-agent-thing
-#fi
-#if [[ ! "$SSH_AUTH_SOCK" ]]; then
-#    eval "$(<~/.ssh-agent-thing)"
-#fi
-#eval $(keychain ~/.ssh/id_irsa_git ~/.ssh/id_rsa_dungeon ~/.ssh/id_ed25519_git ~/.ssh/id_rsa)
-force_color_prompt=yes
-
-if [ "$TERM" = "linux" ]; then
-    _SEDCMD='s/.*\*color\([0-9]\{1,\}\).*#\([0-9a-fA-F]\{6\}\).*/\1 \2/p'
-    for i in $(sed -n "$_SEDCMD" $HOME/.Xresources | awk '$1 < 16 {printf "\\e]P%X%s", $1, $2}'); do
-        echo -en "$i"
-    done
-    clear
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/david/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/david/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/david/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/david/anaconda3/bin:$PATH"
+    fi
 fi
-
-#PS1='%(t.Ding!.%D{%L:%M})%~ '
-#  PS1="%{${bg[white]}${fg[red]}%}%(?..(%?%))\ 
-#  %{${fg[yellow]}${bg[default]}%}%~ "
-PROMPT='%F{blue}%n%f'  # blue user name
-PROMPT+='@'
-PROMPT+="%F{red}${${(%):-%m}#}%f" # red host name
-PROMPT+=" "
-PROMPT+="%F{yellow}%2~ %f" # Yellow last 2 components of working directory
-PROMPT+='%F{cyan}%(t.ass-kicking top of the hour!.%D{%L:%M}) %# ' # cyan prompt
-#source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+unset __conda_setup
+# <<< conda initialize <<<
+conda activate minimal
