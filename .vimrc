@@ -8,7 +8,7 @@
 :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 :augroup END
 
-" set the leader to the space key
+" set the leader
 let mapleader=","
 
 " set the local leader to backslash
@@ -49,6 +49,10 @@ vno <down> <Nop>
 ino :q!<CR> <Esc>:q!<CR>
 ino :wq<CR> <Esc>:wq<CR>
 
+" Turn on Vim regex 'very magic' mode
+nnoremap / /\v
+vnoremap / /\v
+"
 " map style checking
 autocmd FileType python nnoremap <LocalLeader>= :0,$!yapf<CR>
 
@@ -57,17 +61,27 @@ set foldmethod=indent
 set foldlevel=99
 no <leader>z za
 
+" insert python shebang
+au Filetype python ino <leader>s #!/usr/local/env python
+
 " go to next instance of "<##>" delete it
 " and change to insert mode
 ino <leader>, <Esc>/<##><Enter>"_c4l
 no <leader>, <Esc>/<##><Enter>"_c4l
 
 " In python create <##> outside "", go to 2nd" and change to insert mode
-au Filetype python ino <leader>' ""<##><Esc>?"<CR>i
-au Filetype cfg ino <leader>' ""<##><Esc>?"<CR>i
-au Filetype conf ino <leader>' ""<##><Esc>?"<CR>i
-au Filetype vim ino <leader>' ""<##><Esc>?"<CR>i
-au Filetype text ino <leader>' ""<##><Esc>?"<CR>i
+au Filetype python ino <leader>'' ""<##><Esc>?"<CR>i
+au Filetype cfg ino <leader>'' ""<##><Esc>?"<CR>i
+au Filetype conf ino <leader>'' ""<##><Esc>?"<CR>i
+au Filetype vim ino <leader>'' ""<##><Esc>?"<CR>i
+au Filetype text ino <leader>'' ""<##><Esc>?"<CR>i
+
+" In python create <##> outside '', go to 2nd" and change to insert mode
+au Filetype python ino <leader>' ''<##><Esc>?'<CR>i
+au Filetype cfg ino <leader>' ''<##><Esc>?'<CR>i
+au Filetype conf ino <leader>' ''<##><Esc>?'<CR>i
+au Filetype vim ino <leader>' ''<##><Esc>?'<CR>i
+au Filetype text ino <leader>' ''<##><Esc>?'<CR>i
 
 " same thing for parentheses
 au Filetype python ino <leader>9 ()<##><Esc>?)<CR>i
@@ -76,11 +90,25 @@ au Filetype conf ino <leader>9 ()<##><Esc>?)<CR>i
 au Filetype vim ino <leader>9 ()<##><Esc>?)<CR>i
 au Filetype text ino <leader>9 ()<##><Esc>?)<CR>i
 
+" same thing for square brackets
+au Filetype python ino <leader>[ []<##><Esc>?]<CR>i
+au Filetype cfg ino <leader>[ []<##><Esc>?]<CR>i
+au Filetype conf ino <leader>[ []<##><Esc>?]<CR>i
+au Filetype vim ino <leader>[ []<##><Esc>?]<CR>i
+au Filetype text ino <leader>[ []<##><Esc>?]<CR>i
+
+" same thing for curly brackets
+au Filetype python ino <leader>[[ {}<##><Esc>?}<CR>i
+au Filetype cfg ino <leader>[[ {}<##><Esc>?}<CR>i
+au Filetype conf ino <leader>[[ {}<##><Esc>?}<CR>i
+au Filetype vim ino <leader>[[ {}<##><Esc>?}<CR>i
+au Filetype text ino <leader>[[ {}<##><Esc>?}<CR>i
+
 " same for format string parentheses
-au Filetype python ino <leader>/ (f"{}")<##><Esc>?f<CR>2li
+au Filetype python ino <leader>f (f"")<##><Esc>?f<CR>2li
 
 " same for quotation marks inside  parentheses
-au Filetype python ino <leader>. ("")<##><Esc>?"<CR>i
+au Filetype python ino <leader>. ('')<##><Esc>?'<CR>i
 
 au Filetype sh colorscheme koehler
 au Filetype cfg colorscheme desert
