@@ -42,6 +42,6 @@ conky.text = [[
     { "full_text": "Swap: ${swapperc}% " , "color": ${if_match ${swapperc}=0}"\#EEC900"${else}"\#ff0000"${endif} },
     { "full_text" : ": ${battery_percent BAT0}%" , "color": "\#87CEFA" },
     { "full_text": "RAM ${memperc}%" , "color": ${if_match ${memperc}<85}"\#EEC900"${else}"\#ff0000"${endif} },
-    { "full_text":"${time %a %I:%M}", "short_text":"${time %I:%M}","color":"\#87CEFA", "separator":true, "separator_block_width":6 }
+    { "full_text":"${time %a %l:%M}", "short_text":"${time %I:%M}","color":"\#87CEFA", "separator":true, "separator_block_width":6 }
 ],
 ]];
