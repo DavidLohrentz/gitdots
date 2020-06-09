@@ -59,12 +59,15 @@ Xcursor.size:                     0
 
 !URxvt.font:                       xft:Inconsolata:size=14
 !URxvt.font:                       xft:Hack:size=15
-URxvt.font:                       xft:Hack:size=12, xft:Font Awesome 4 Brands:size=12
+URxvt.font:                       xft:Hack:size=13, xft:Font Awesome 4 Brands:size=12
 
 urxvt*depth:                      32
 
+! Background Transparency:
 ! almost completely transparent background:
-urxvt*background:                 rgba:0000/0000/0000/4444
+! urxvt*background:                 rgba:0000/0000/0000/4444
+! a little more opaque background
+urxvt*background:                 rgba:0000/0000/0000/aaaa
 ! about 50% opaque background:
 !urxvt*background:                 rgba:0000/0000/0200/c800
 
