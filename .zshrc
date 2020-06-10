@@ -1,12 +1,12 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-PROMPT+='%F{cyan}%(t.ass-kicking top of the hour!.%D{%L:%M}) %# ' # cyan prompt
 cowthink -f head-in "trump, you said you were going to make your head great again"
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+eval $(keychain --eval --quiet id_ed25519_git id_ed25519_pi id_ed25519_db)
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
