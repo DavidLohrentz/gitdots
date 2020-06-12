@@ -68,7 +68,7 @@ bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 # bindsym $mod+t exec $ns pkill compton
 # bindsym $mod+Ctrl+t exec $ns compton -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'killed & restarted dunst'"
-bindsym Print exec $ns i3-scrot
+bindsym Print exec $ns ~/scripts/screenshot.sh
 bindsym $mod+Print --release exec $ns i3-scrot -w
 bindsym $mod+Shift+Print --release exec $ns i3-scrot -s
 bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
@@ -114,12 +114,12 @@ bindsym $mod+Shift+Right move right
 
 # workspace back and forth (with/without active container)
 workspace_auto_back_and_forth yes
-bindsym $mod+b workspace back_and_forth
+#bindsym $mod+b workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
 # split orientation
 bindsym $mod+h split h;exec notify-send 'tile horizontally'
-bindsym $mod+v split v;exec notify-send 'tile vertically'
+bindsym $mod+b split v;exec notify-send 'tile vertically'
 bindsym $mod+q split toggle
 
 # toggle fullscreen mode for the focused container
@@ -168,17 +168,18 @@ set $ws4 4
 set $ws5 5
 set $ws6 " 6="
 set $wsa "a"
-set $wsc "c=cmus"
+set $wsc "c="
 set $wse "e="
 set $wsg "g"
 set $wsk "k"
 set $wst "t=tmux"
-set $wsw "w=www"
+set $wsw "w="
+set $wsv "v="
 
 # assign workspaces to monitors
-workspace $ws1 output $m1
+workspace $ws1 output $m1  #1=laptop
 workspace $ws2 output $m1
-workspace $ws3 output $m2
+workspace $ws3 output $m2  #2=HDMI
 workspace $ws4 output $m2
 workspace $ws5 output $m2
 workspace $ws6 output $m2
@@ -191,6 +192,7 @@ workspace $wsk output $m2
 #workspace $wsp output $m1
 workspace $wst output $m2
 workspace $wsw output $m1
+workspace $wsv output $m2   
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -208,6 +210,7 @@ bindsym $mod+k workspace $wsk
 #bindsym $mod+p workspace $wsp
 bindsym $mod+t workspace $wst
 bindsym $mod+w workspace $wsw
+bindsym $mod+v workspace $wsv
 
 # Move focused container to workspace
 bindsym $mod+Ctrl+1 move container to workspace $ws1
@@ -232,6 +235,7 @@ bindsym $mod+Shift+k move container to workspace $wsk; workspace $wsk
 #bindsym $mod+Shift+p move container to workspace $wsp; workspace $wsp
 bindsym $mod+Shift+t move container to workspace $wst; workspace $wst
 bindsym $mod+Shift+w move container to workspace $wsw; workspace $wsw
+bindsym $mod+Shift+v move container to workspace $wsv; workspace $wsv
 
 # Open applications on specific workspaces
 assign [class="Atom"] $wsa
@@ -251,6 +255,7 @@ assign [instance="mutt"] $wse
 assign [instance="tmux"] $wst
 assign [instance="reddit"] $ws5
 assign [instance="calcurse"] $ws6
+assign [instance="nvim"] $wsv
 # assign [class="Skype"] $ws5
 #
 # fix popup window in atom that goes astray
@@ -402,6 +407,7 @@ exec $ns firejail firefox
 exec $ns /home/david/scripts/background.sh
 
 exec $ns termite --name=cmus -e cmus &
+exec $ns termite --name=nvim -e vim ~/.config/i3/config &
 #exec $ns termite --name=calcurse -e calcurse &
 #exec $ns firejail termite --name=reddit -e rtv &
 exec $ns termite --name=mutt -e neomutt &
@@ -435,22 +441,9 @@ for_window [instance="scratchpad"] border pixel 7
 for_window [instance="scratchpad"] move scratchpad
 
 # start a scratchpad when xsession is started
-exec $ns termite --name=scratchpad --config=/home/david/.config/termite/scratchpad/config &
+exec $ns termite --name=scratchpad -e 'tmux new-session -A -s scratchpad' --config=/home/david/.config/termite/scratchpad/config &
 bindsym $mod+x [instance="scratchpad"] scratchpad show
 bindsym $mod+Shift+x [instance="scratchpad"] move scratchpad
-
-# pyradio SCRATCHPAD
-for_window [instance="pyradio"] floating enable
-for_window [instance="pyradio"] resize set 600 400
-#
-for_window [instance="pyradio"] border pixel 9
-for_window [instance="pyradio"] move scratchpad
-
-# start a pyradio scratchpad when xsession is started
-exec $ns termite --name=pyradio --config=/home/david/.config/termite/scratchpad/config -e pyradio &
-bindsym $mod+Ctrl+period exec $ns termite --name=pyradio --config=/home/david/.config/termite/scratchpad/config -e pyradio &
-bindsym $mod+period [instance="pyradio"] scratchpad show; [instance="pyradio"] move position center
-bindsym $mod+Shift+period [instance="pyradio"] move scratchpad
 
 
 # calcurse SCRATCHPAD
