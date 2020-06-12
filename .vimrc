@@ -61,9 +61,6 @@ set foldmethod=indent
 set foldlevel=99
 no <leader>z za
 
-" insert python shebang
-au Filetype python ino <leader>s #!/usr/local/env python
-
 " go to next instance of "<##>" delete it
 " and change to insert mode
 ino <leader>, <Esc>/<##><Enter>"_c4l
@@ -106,13 +103,23 @@ au Filetype text ino <leader>[[ {}<##><Esc>?}<CR>i
 
 " same for format string parentheses
 au Filetype python ino <leader>f (f"")<##><Esc>?f<CR>2li
+" same thing for print f string
+au Filetype python ino <leader>pf print(f"")<##><Esc>?f<CR>2li
 
 " same for quotation marks inside  parentheses
 au Filetype python ino <leader>. ('')<##><Esc>?'<CR>i
 
-au Filetype sh colorscheme koehler
-au Filetype cfg colorscheme desert
-au Filetype conf colorscheme desert
+" make background transparent
+syntax on
+hi Normal guibg=NONE ctermbg=NONE
+highlight NonText ctermbg=none
+"
+set t_Co=256
+" set t_AB=^[[48;5;%dm
+" set t_AF=^[[38;5;%dm
+set colorscheme desert256
+"au Filetype cfg colorscheme desert
+"au Filetype conf colorscheme desert
 au Filetype python colorscheme python
 
 nnoremap <CR> :nohlsearch<cr>
@@ -120,3 +127,4 @@ nnoremap <CR> :nohlsearch<cr>
 " navigate by display lines
 noremap j gj
 noremap k gk
+
