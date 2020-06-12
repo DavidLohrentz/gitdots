@@ -5,13 +5,13 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
-eval $(keychain --eval --quiet id_ed25519_git id_ed25519_pi id_ed25519_db)
 #
 # Path to your oh-my-zsh installation.
 export ZSH="/home/david/.oh-my-zsh"
 
 #
 ZSH_THEME="powerlevel10k/powerlevel10k"
+
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
@@ -70,19 +70,3 @@ source $HOME/.aliasrc
 # vi mode
 #bindkey -v
 #export KEYTIMEOUT=5
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/david/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/david/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/david/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/david/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-conda activate minimal
