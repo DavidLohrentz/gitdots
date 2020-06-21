@@ -33,4 +33,6 @@ alias mluks='~/scripts/luks_mount_unmount.sh'
 # git 
 alias ga='git add'
 alias gc='git commit'
+alias gp='git push'
 alias gd='git diff'
+alias gs='git status'
