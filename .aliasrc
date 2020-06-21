@@ -1,8 +1,9 @@
+#!/usr/bin/zsh
 alias df='df -h'
 alias c='clear'
 alias ..='cd ../'
 alias ...='cd ../../'
-alias pac='pacman -Syu'
+alias pac='sudo pacman -Syu'
 alias up='cd ../'
 alias rm='trash-put'
 alias less='less --RAW-CONTROL-CHARS'
@@ -26,6 +27,7 @@ alias vz='vim /home/david/.config/gitdots/.zshrc'
 alias va='vim ~/.config/gitdots/.aliasrc'
 alias vv='vim ~/.config/gitdots/.vimrc'
 alias vt='vim ~/.config/gitdots/.tmux.conf'
+alias vi='vim ~/.config/gitdots/i3config'
 
 # luks 
 alias mluks='~/scripts/luks_mount_unmount.sh'
