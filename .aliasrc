@@ -14,6 +14,7 @@ alias mutt='mailsync && neomutt'
 alias l='ls -la --color'
 alias ls='ls --color'
 alias lsb='lsblk -f'
+alias tp='trash-put'
 alias myip='curl http://ipecho.net/plain; echo'
 
 # source
@@ -21,13 +22,6 @@ alias "."='source'
 alias sz='source /home/david/.config/gitdots/.zshrc'
 alias st='tmux source ~/.tmux.conf'
 
-# vim
-alias v='vim'
-alias vz='vim /home/david/.config/gitdots/.zshrc'
-alias va='vim ~/.config/gitdots/.aliasrc'
-alias vv='vim ~/.config/gitdots/.vimrc'
-alias vt='vim ~/.config/gitdots/.tmux.conf'
-alias vi='vim ~/.config/gitdots/i3config'
 
 # luks 
 alias mluks='~/scripts/luks_mount_unmount.sh'
