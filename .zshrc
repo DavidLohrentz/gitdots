@@ -1,72 +1,55 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
-#
-# Path to your oh-my-zsh installation.
-export ZSH="/home/david/.oh-my-zsh"
+#!/usr/bin/zsh
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
 
-#
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# Enable colors and change prompt:
+autoload -U colors && colors
 
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-export UPDATE_ZSH_DAYS=28
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-
-# plugins
-plugins=(git)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-source $HOME/.aliasrc
-#
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-#
+# 
+HISTFILE=~/.config/zsh/.histfile
+HISTSIZE=10000
+SAVEHIST=10000
+setopt autocd extendedglob
 # vi mode
-#bindkey -v
-#export KEYTIMEOUT=5
+bindkey -v
+#
+zstyle :compinstall filename '/home/david/.config/zsh/.zshrc'
+
+autoload -Uz compinit
+compinit
+
+
+#
+# autocompletion with arrow-key driven interface
+zstyle ':completion:*' menu select
+# Enable searching through history
+bindkey '^R' history-incremental-pattern-search-backward
+
+# Load zsh-syntax-highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+# Suggest aliases for commands
+source /usr/share/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh 2>/dev/null
+# make sure this goes after syntax-highlighting
+source $ZDOTDIR/zsh-history-substring-search/zsh-history-substring-search.zsh
+# up arrow = ^[[A
+bindkey '^[[A' history-substring-search-up
+# down arrow = ^[[B
+bindkey '^[[B' history-substring-search-down
+# Source configs
+for f in ~/.config/shellconfig/*; do source "$f"; done
+
+# git prompt on right in DarkRed(88)
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info  }
+precmd_functions+=( precmd_vcs_info  )
+setopt prompt_subst
+RPROMPT=\$vcs_info_msg_0_
+zstyle ':vcs_info:git:*' formats '%F{88}(%b)%r%f'
+zstyle ':vcs_info:*' enable git
+# left hand prompt
+PROMPT='%F{13}%n%f'  # fuchsia user name
+PROMPT+='@'
+PROMPT+="%F{82}${${(%):-%m}#}%f" # chartreuse host name
+PROMPT+=" "
+PROMPT+="%B%F{57}%2~ %f" # bold BlueViolet last 2 components of working directory
+PROMPT+='%F{30}%(t.punkinhead-ass-kicking top of the hour!.%D{%L:%M}) %f%# ' # turqoise prompt
